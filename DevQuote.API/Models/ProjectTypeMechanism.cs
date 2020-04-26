@@ -10,17 +10,15 @@ namespace DevQuote.API.Models
         [Key]
         public int id { get; set; }
 
-        public int projectTypeId { get; set; }
-
         [Column(TypeName = "varchar(100)")]
         public string name { get; set; }
 
         public float devMonthsQuantity { get; set; }
 
-        [ForeignKey("projectTypeId")]
+        [ForeignKey("ProjectType")]
+        public int projectTypeId { get; set; }
         public ProjectType projectType { get; set; }
 
-        [ForeignKey("id")]
         public List<AssignProject> assignProjects { get; set; } = new List<AssignProject>();
     }
 }

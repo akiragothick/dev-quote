@@ -13,7 +13,7 @@ namespace DevQuote.API.Migrations
                     id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "varchar(100)", nullable: true),
-                    monthPay = table.Column<string>(type: "varchar(100)", nullable: true)
+                    monthPay = table.Column<decimal>(type: "decimal(20,10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,20 +51,15 @@ namespace DevQuote.API.Migrations
                 name: "tprojecttypemechanism",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false),
-                    projectTypeId = table.Column<int>(nullable: false),
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "varchar(100)", nullable: true),
-                    devMonthsQuantity = table.Column<float>(nullable: false)
+                    devMonthsQuantity = table.Column<float>(nullable: false),
+                    projectTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tprojecttypemechanism", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_tprojecttypemechanism_tprojecttype_id",
-                        column: x => x.id,
-                        principalTable: "tprojecttype",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tprojecttypemechanism_tprojecttype_projectTypeId",
                         column: x => x.projectTypeId,
@@ -77,28 +72,17 @@ namespace DevQuote.API.Migrations
                 name: "tassignproject",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false),
-                    professionalId = table.Column<int>(nullable: false),
-                    projectTypeMechanismId = table.Column<int>(nullable: false),
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     professionalMonthQuantity = table.Column<int>(nullable: false),
                     addProfessional = table.Column<bool>(nullable: false),
-                    addProfessionalReducedMonth = table.Column<float>(nullable: false)
+                    addProfessionalReducedMonth = table.Column<float>(nullable: false),
+                    professionalId = table.Column<int>(nullable: false),
+                    projectTypeMechanismId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tassignproject", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_tassignproject_tprofessional_id",
-                        column: x => x.id,
-                        principalTable: "tprofessional",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_tassignproject_tprojecttypemechanism_id",
-                        column: x => x.id,
-                        principalTable: "tprojecttypemechanism",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tassignproject_tprofessional_professionalId",
                         column: x => x.professionalId,

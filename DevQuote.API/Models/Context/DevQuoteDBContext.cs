@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DevQuote.API.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevQuote.API.Models.Context
 {
@@ -10,7 +7,7 @@ namespace DevQuote.API.Models.Context
     {
         public DevQuoteDBContext(DbContextOptions<DevQuoteDBContext> options) : base(options)
         {
-
+            InitMapper.Start();
         }
 
         public DbSet<User> User { get; set; }

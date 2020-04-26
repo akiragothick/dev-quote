@@ -21,8 +21,12 @@ A step by step series of examples that tell you how to get a development env run
 
 From appsettings.json edit:
 
+* **{server}**
+* **{database}**
+* **{user}**
+* **{password}**
 ```
-"DevConnection": "Server=**{server}**;Database=**{database}**;User Id=**{user}**;Password=**{password}**;MultipleActiveResultSets=True;"
+"DevConnection": "Server={server};Database={database};User Id={user};Password={password};MultipleActiveResultSets=True;"
 ```
 
 Execute from console administrator nugets:

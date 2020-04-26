@@ -12,10 +12,9 @@ namespace DevQuote.API.Models
         [Column(TypeName = "varchar(100)")]
         public string name { get; set; }
 
-        [Column(TypeName = "varchar(100)")]
-        public string monthPay { get; set; }
+        [Column(TypeName = "decimal(20,10)")]
+        public decimal monthPay { get; set; }
 
-        [ForeignKey("id")]
         public List<AssignProject> assignProjects { get; set; } = new List<AssignProject>();
     }
 }

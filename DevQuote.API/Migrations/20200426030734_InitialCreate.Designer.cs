@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevQuote.API.Migrations
 {
     [DbContext(typeof(DevQuoteDBContext))]
-    [Migration("20200423051736_InitialCreate")]
+    [Migration("20200426030734_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,7 +23,9 @@ namespace DevQuote.API.Migrations
             modelBuilder.Entity("DevQuote.API.Models.AssignProject", b =>
                 {
                     b.Property<int>("id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("addProfessional")
                         .HasColumnType("bit");
@@ -56,8 +58,8 @@ namespace DevQuote.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("monthPay")
-                        .HasColumnType("varchar(100)");
+                    b.Property<decimal>("monthPay")
+                        .HasColumnType("decimal(20,10)");
 
                     b.Property<string>("name")
                         .HasColumnType("varchar(100)");
@@ -85,7 +87,9 @@ namespace DevQuote.API.Migrations
             modelBuilder.Entity("DevQuote.API.Models.ProjectTypeMechanism", b =>
                 {
                     b.Property<int>("id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<float>("devMonthsQuantity")
                         .HasColumnType("real");
@@ -123,26 +127,14 @@ namespace DevQuote.API.Migrations
 
             modelBuilder.Entity("DevQuote.API.Models.AssignProject", b =>
                 {
-                    b.HasOne("DevQuote.API.Models.Professional", null)
-                        .WithMany("assignProjects")
-                        .HasForeignKey("id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DevQuote.API.Models.ProjectTypeMechanism", null)
-                        .WithMany("assignProjects")
-                        .HasForeignKey("id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DevQuote.API.Models.Professional", "professional")
-                        .WithMany()
+                        .WithMany("assignProjects")
                         .HasForeignKey("professionalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DevQuote.API.Models.ProjectTypeMechanism", "projectTypeMechanism")
-                        .WithMany()
+                        .WithMany("assignProjects")
                         .HasForeignKey("projectTypeMechanismId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -150,14 +142,8 @@ namespace DevQuote.API.Migrations
 
             modelBuilder.Entity("DevQuote.API.Models.ProjectTypeMechanism", b =>
                 {
-                    b.HasOne("DevQuote.API.Models.ProjectType", null)
-                        .WithMany("projectTypeMechanisms")
-                        .HasForeignKey("id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DevQuote.API.Models.ProjectType", "projectType")
-                        .WithMany()
+                        .WithMany("projectTypeMechanisms")
                         .HasForeignKey("projectTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

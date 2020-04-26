@@ -13,7 +13,6 @@ namespace DevQuote.API.Models
         [Column(TypeName = "varchar(100)")]
         public string name { get; set; }
 
-        [ForeignKey("id")]
         public List<ProjectTypeMechanism> projectTypeMechanisms { get; set; } = new List<ProjectTypeMechanism>();
     }
 }
